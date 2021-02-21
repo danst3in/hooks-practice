@@ -19,6 +19,7 @@ function App() {
   });
 
   const inputRef = useRef();
+  const hello = useRef(() => console.log("hello from ref"));
   const [showHello, setShowHello] = useState(true);
 
   return (
@@ -60,6 +61,8 @@ function App() {
           onClick={() => {
             // console.log(inputRef.current);
             inputRef.current.focus();
+            // call function stored in ref
+            hello.current();
           }}
         >
           focus on email input
