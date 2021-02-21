@@ -17,9 +17,15 @@ function App() {
     password: "",
     firstName: "",
   });
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(() =>
+    JSON.parse(localStorage.getItem("count"))
+  );
   // useFetch("https://randomuser.me/api/");
   const { data, loading } = useFetch(`http://numbersapi.com/${count}`);
+
+  useEffect(() => {
+    localStorage.setItem("count", JSON.stringify(count));
+  }, [count]);
 
   return (
     <div className="App">
