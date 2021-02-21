@@ -17,9 +17,9 @@ function App() {
     password: "",
     firstName: "",
   });
-
+  const [count, setCount] = useState(0);
   // useFetch("https://randomuser.me/api/");
-  useFetch("http://numbersapi.com/42");
+  const { data, loading } = useFetch(`http://numbersapi.com/${count}`);
 
   return (
     <div className="App">
@@ -28,6 +28,8 @@ function App() {
         <p>hey!</p>
         {/* <button onClick={() => setShowHello(!showHello)}>toggle hello</button>
         {showHello && <Hello />} */}
+        <button onClick={() => setCount((s) => s + 1)}>Increment</button>
+        <div>{!data ? `loading...` : data}</div>
         <p>A custom hook with useState is managing these two forms.</p>
         <form action="">
           <input

@@ -1,26 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const useFetch = (url) => {
-  useEffect(
-    /* async */ () => {
-      /* await fetch(url); */ // sometimes complains about this syntax?
-      // better to use .then or place a separate async function inside of the useEffect
-      /* const f = async () => {
+  //  didn't end up using loading?
+  const [state, setState] = useState({ data: null, loading: true });
+  useEffect(() => {
+    setState((state) => ({ data: state.data, loading: true }));
+    fetch(url)
+      .then((x) => x.text())
+      .then((y) => {
+        setState({ data: y, loading: false });
+      });
+
+    /* async () => {*/
+    /* await fetch(url); */ // sometimes complains about this syntax?
+    // better to use .then or place a separate async function inside of the useEffect
+    /* const f = async () => {
         await fetch(url);
       };
       f(); */
-
-      fetch(url)
-        .then((x) => x.text())
-        .then((y) => {
-          console.log(y);
-        });
-      return () => {
-        console.log("cleanup");
-      };
-    },
-    [url]
-  );
+  }, [url, setState]);
+  return state;
 };
 
 export default useFetch;
