@@ -5,11 +5,12 @@ import React, {
   useRef,
   useLayoutEffect,
 } from "react";
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 // import "./App.css";
 import { useForm } from "./useForm";
 import { Hello } from "./Hello";
 import useFetch from "./useFetch";
+import useMeasure from "./useMeasure";
 
 /**
  * TODO:
@@ -29,9 +30,7 @@ function App() {
   const [showHello, setShowHello] = useState(true);
 
   //  get the dimensions of a DOM element
-  // useLayoutEffect(() => {
-  //   console.log(inputRef.current.getBoundingClientRect());
-  // }, []);
+  const [rect, inputRef2] = useMeasure([]);
 
   return (
     <div className="App">
@@ -55,6 +54,7 @@ function App() {
             onChange={handleChange}
           />
           <input
+            ref={inputRef2}
             type="text"
             name="firstName"
             placeholder="firstName"

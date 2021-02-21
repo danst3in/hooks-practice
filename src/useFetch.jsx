@@ -20,17 +20,7 @@ const useFetch = (url) => {
         if (isCurrent.current) {
           setState({ data: y, loading: false });
         }
-        // setTimeout(() => {
-        // }, 2000);
       });
-
-    /* async () => {*/
-    /* await fetch(url); */ // sometimes complains about this syntax?
-    // better to use .then or place a separate async function inside of the useEffect
-    /* const f = async () => {
-        await fetch(url);
-      };
-      f(); */
   }, [url, setState]);
   return state;
 };

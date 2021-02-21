@@ -1,34 +1,17 @@
 import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
 import useFetch from "./useFetch";
+import useMeasure from "./useMeasure";
 
 export const Hello = () => {
-  // const renders = useRef(0);
-  // toggle Hello to create error - Can't perform a React state update on an unmounted component.
-  // remove error by updating useFetch to include ref for conditional state update
   const [count, setCount] = useState(() =>
-    JSON.parse(localStorage.getItem("count"))
+    JSON.parse(localStorage.getItem("count") || 0)
   );
   const { data, loading } = useFetch(`http://numbersapi.com/${count}`);
   useEffect(() => {
     localStorage.setItem("count", JSON.stringify(count));
   }, [count]);
 
-  // console.log("hello renders: ", renders.current++);
-
-  // useEffect(() => {
-  //   console.log("render");
-
-  //   // add cleanup function
-  //   return () => {
-  //     console.log("unmount");
-  //   };
-  // }, []);
-  const [rect, setRect] = useState({});
-  const divRef = useRef();
-  useLayoutEffect(() => {
-    console.log(divRef.current.getBoundingClientRect());
-    setRect(divRef.current.getBoundingClientRect());
-  }, [data]);
+  const [rect, divRef] = useMeasure([data]);
 
   return (
     <div>
