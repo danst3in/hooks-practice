@@ -17,15 +17,36 @@ function App() {
     firstName: "",
   });
 
-  const [showHello, setShowHello] = useState(true);
+  // const [showHello, setShowHello] = useState(true);
+
+  // useEffect(() => {
+  //   // console.log("render");
+  //   const onMouseMove = (e) => {
+  //     console.log(e);
+  //   };
+  //   window.addEventListener("mousemove", onMouseMove);
+
+  //   // add cleanup function
+  //   return () => {
+  //     window.removeEventListener("mousemove", onMouseMove);
+  //     console.log("unmount/cleanup");
+  //   };
+  // }, []);
+
+  useEffect(() => {
+    console.log("mount1");
+  }, []);
+  useEffect(() => {
+    console.log("mount2");
+  }, []);
 
   return (
     <div className="App">
       <header className="App-header">
         {/* <img src={logo} alt="logo-react" className="App-logo" /> */}
         <p>hey!</p>
-        <button onClick={() => setShowHello(!showHello)}>toggle hello</button>
-        {showHello && <Hello />}
+        {/* <button onClick={() => setShowHello(!showHello)}>toggle hello</button>
+        {showHello && <Hello />} */}
         <p>A custom hook with useState is managing these two forms.</p>
         <form action="">
           <input

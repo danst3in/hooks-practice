@@ -4,6 +4,7 @@ export const Hello = () => {
   React.useEffect(() => {
     console.log("render");
 
+    // add cleanup function
     return () => {
       console.log("unmount");
     };
