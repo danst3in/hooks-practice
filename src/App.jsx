@@ -10,7 +10,15 @@ import { useForm } from "./useForm";
  */
 
 function App() {
-  const [values, handleChange] = useForm({ email: "", password: "" });
+  const [values, handleChange] = useForm({
+    email: "",
+    password: "",
+    firstName: "",
+  });
+
+  useEffect(() => {
+    console.log("render");
+  }, [values.password, values.firstName]);
 
   return (
     <div className="App">
@@ -18,18 +26,28 @@ function App() {
         <img src={logo} alt="logo-react" className="App-logo" />
         <p>hey!</p>
         <p>A custom hook with useState is managing these two forms.</p>
-        <input
-          type="text"
-          name="email"
-          value={values.email}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          value={values.password}
-          onChange={handleChange}
-        />
+        <form action="">
+          <input
+            type="text"
+            name="email"
+            placeholder="email"
+            value={values.email}
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            name="firstName"
+            placeholder="firstName"
+            value={values.firstName}
+            onChange={handleChange}
+          />
+          <input
+            type="password"
+            name="password"
+            value={values.password}
+            onChange={handleChange}
+          />
+        </form>
       </header>
     </div>
   );
