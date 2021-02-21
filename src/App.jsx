@@ -3,6 +3,7 @@ import logo from "./logo.svg";
 // import "./App.css";
 import { useForm } from "./useForm";
 import { Hello } from "./Hello";
+import useFetch from "./useFetch";
 
 /**
  * TODO:
@@ -17,28 +18,8 @@ function App() {
     firstName: "",
   });
 
-  // const [showHello, setShowHello] = useState(true);
-
-  // useEffect(() => {
-  //   // console.log("render");
-  //   const onMouseMove = (e) => {
-  //     console.log(e);
-  //   };
-  //   window.addEventListener("mousemove", onMouseMove);
-
-  //   // add cleanup function
-  //   return () => {
-  //     window.removeEventListener("mousemove", onMouseMove);
-  //     console.log("unmount/cleanup");
-  //   };
-  // }, []);
-
-  useEffect(() => {
-    console.log("mount1");
-  }, []);
-  useEffect(() => {
-    console.log("mount2");
-  }, []);
+  // useFetch("https://randomuser.me/api/");
+  useFetch("http://numbersapi.com/42");
 
   return (
     <div className="App">
