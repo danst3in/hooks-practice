@@ -3,7 +3,8 @@ import useFetch from "./useFetch";
 
 export const Hello = () => {
   // const renders = useRef(0);
-  //  toggle Hello to create error - Can't perform a React state update on an unmounted component.
+  // toggle Hello to create error - Can't perform a React state update on an unmounted component.
+  // remove error by updating useFetch to include ref for conditional state update
   const [count, setCount] = useState(() =>
     JSON.parse(localStorage.getItem("count"))
   );

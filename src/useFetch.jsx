@@ -1,15 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 const useFetch = (url) => {
   //  didn't end up using loading?
   const [state, setState] = useState({ data: null, loading: true });
+  const isCurrent = useRef(true);
+
+  useEffect(() => {
+    return () => {
+      // called when component is going to unmount
+      isCurrent.current = false;
+    };
+  }, []);
+
   useEffect(() => {
     setState((state) => ({ data: state.data, loading: true }));
     fetch(url)
       .then((x) => x.text())
       .then((y) => {
         setTimeout(() => {
-          setState({ data: y, loading: false });
+          if (isCurrent.current) {
+            setState({ data: y, loading: false });
+          }
         }, 2000);
       });
 
