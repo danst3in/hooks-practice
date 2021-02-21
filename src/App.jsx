@@ -17,17 +17,9 @@ function App() {
     password: "",
     firstName: "",
   });
-  const [count, setCount] = useState(() =>
-    JSON.parse(localStorage.getItem("count"))
-  );
 
-  const { data, loading } = useFetch(`http://numbersapi.com/${count}`);
   const inputRef = useRef();
   const [showHello, setShowHello] = useState(true);
-
-  useEffect(() => {
-    localStorage.setItem("count", JSON.stringify(count));
-  }, [count]);
 
   return (
     <div className="App">
@@ -36,9 +28,11 @@ function App() {
         <p>hey!</p>
         <button onClick={() => setShowHello(!showHello)}>toggle hello</button>
         {showHello && <Hello />}
-        <button onClick={() => setCount((s) => s + 1)}>Increment</button>
-        <div>{!data ? `loading...` : data}</div>
-        <p>A custom hook with useState is managing these two forms.</p>
+
+        <p>
+          A custom hook with useState is managing these three inputs in this
+          form.
+        </p>
         <form action="">
           <input
             ref={inputRef}
@@ -68,7 +62,7 @@ function App() {
             inputRef.current.focus();
           }}
         >
-          focus
+          focus on email input
         </button>
       </header>
     </div>
