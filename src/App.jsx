@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  useLayoutEffect,
+} from "react";
 import logo from "./logo.svg";
 // import "./App.css";
 import { useForm } from "./useForm";
@@ -21,6 +27,11 @@ function App() {
   const inputRef = useRef();
   const hello = useRef(() => console.log("hello from ref"));
   const [showHello, setShowHello] = useState(true);
+
+  //  get the dimensions of a DOM element
+  // useLayoutEffect(() => {
+  //   console.log(inputRef.current.getBoundingClientRect());
+  // }, []);
 
   return (
     <div className="App">
