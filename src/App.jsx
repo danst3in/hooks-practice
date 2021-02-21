@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import logo from "./logo.svg";
-import "./App.css";
+// import "./App.css";
 import { useForm } from "./useForm";
+import { Hello } from "./Hello";
 
 /**
  * TODO:
@@ -16,15 +17,15 @@ function App() {
     firstName: "",
   });
 
-  useEffect(() => {
-    console.log("render");
-  }, [values.password, values.firstName]);
+  const [showHello, setShowHello] = useState(true);
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} alt="logo-react" className="App-logo" />
+        {/* <img src={logo} alt="logo-react" className="App-logo" /> */}
         <p>hey!</p>
+        <button onClick={() => setShowHello(!showHello)}>toggle hello</button>
+        {showHello && <Hello />}
         <p>A custom hook with useState is managing these two forms.</p>
         <form action="">
           <input
