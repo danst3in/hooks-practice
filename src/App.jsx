@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import logo from "./logo.svg";
 // import "./App.css";
 import { useForm } from "./useForm";
@@ -20,8 +20,9 @@ function App() {
   const [count, setCount] = useState(() =>
     JSON.parse(localStorage.getItem("count"))
   );
-  // useFetch("https://randomuser.me/api/");
+
   const { data, loading } = useFetch(`http://numbersapi.com/${count}`);
+  const inputRef = useRef();
 
   useEffect(() => {
     localStorage.setItem("count", JSON.stringify(count));
@@ -39,6 +40,7 @@ function App() {
         <p>A custom hook with useState is managing these two forms.</p>
         <form action="">
           <input
+            ref={inputRef}
             type="text"
             name="email"
             placeholder="email"
@@ -59,6 +61,14 @@ function App() {
             onChange={handleChange}
           />
         </form>
+        <button
+          onClick={() => {
+            // console.log(inputRef.current);
+            inputRef.current.focus();
+          }}
+        >
+          focus
+        </button>
       </header>
     </div>
   );
