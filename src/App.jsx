@@ -23,6 +23,7 @@ function App() {
 
   const { data, loading } = useFetch(`http://numbersapi.com/${count}`);
   const inputRef = useRef();
+  const [showHello, setShowHello] = useState(true);
 
   useEffect(() => {
     localStorage.setItem("count", JSON.stringify(count));
@@ -33,8 +34,8 @@ function App() {
       <header className="App-header">
         {/* <img src={logo} alt="logo-react" className="App-logo" /> */}
         <p>hey!</p>
-        {/* <button onClick={() => setShowHello(!showHello)}>toggle hello</button>
-        {showHello && <Hello />} */}
+        <button onClick={() => setShowHello(!showHello)}>toggle hello</button>
+        {showHello && <Hello />}
         <button onClick={() => setCount((s) => s + 1)}>Increment</button>
         <div>{!data ? `loading...` : data}</div>
         <p>A custom hook with useState is managing these two forms.</p>

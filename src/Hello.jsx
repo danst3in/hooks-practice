@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 export const Hello = () => {
-  React.useEffect(() => {
-    console.log("render");
+  const renders = useRef(0);
+  console.log("hello renders: ", renders.current++);
 
-    // add cleanup function
-    return () => {
-      console.log("unmount");
-    };
-  }, []);
+  // useEffect(() => {
+  //   console.log("render");
+
+  //   // add cleanup function
+  //   return () => {
+  //     console.log("unmount");
+  //   };
+  // }, []);
   return <div>Hello</div>;
 };
