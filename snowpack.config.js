@@ -10,13 +10,13 @@ module.exports = {
     /* ... */
     ["@snowpack/plugin-react-refresh"],
     /* eslint troubleshooting - https://github.com/snowpackjs/snowpack/discussions/2147 */
-    [
-      "@snowpack/plugin-run-script",
-      {
-        cmd: 'eslint "src/**/*.{js,jsx}"',
-        watch: 'watch "$1" src',
-      },
-    ],
+    // [
+    //   "@snowpack/plugin-run-script",
+    //   {
+    //     cmd: 'eslint "src/**/*.{js,jsx}"',
+    //     watch: 'watch "$1" src',
+    //   },
+    // ],
   ],
   routes: [
     /* Enable an SPA Fallback in development: */
