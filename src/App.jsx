@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 // import logo from "./logo.svg";
 
 import { Hello } from "./Hello";
+import { Square } from "./Square";
 
 /**
  * TODO:
@@ -12,14 +13,22 @@ import { Hello } from "./Hello";
 
 function App() {
   const [count, setCount] = useState(0);
-  const increment = useCallback(() => {
-    setCount((c) => c + 1);
-  }, [setCount]);
+  const favoriteNums = [7, 21, 37];
+
+  const increment = useCallback(
+    (n) => {
+      setCount((c) => c + n);
+    },
+    [setCount]
+  );
 
   return (
     <div>
       <Hello increment={increment} />
       <div>count: {count}</div>
+      {favoriteNums.map((n) => {
+        return <Square increment={increment} n={n} key={n} />;
+      })}
     </div>
   );
 }
