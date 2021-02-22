@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 
 /**
  * TODO:
@@ -8,22 +8,54 @@ import React, { useReducer } from "react";
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "INCREMENT":
-      return state + 1;
-    case "DECREMENT":
-      return state - 1;
+    case "ADD-TODO":
+      return {
+        todos: [...state.todos, { text: action.text, completed: false }],
+        todoCount: state.todoCount + 1,
+      };
+    case "TOGGLE-TODO":
+      return {
+        todos: state.todos.map((t, idx) =>
+          idx === action.idx ? { ...t, completed: !t.completed } : t
+        ),
+        todoCount: state.todoCount,
+      };
     default:
       return state;
   }
 };
 
 function App() {
-  const [count, dispatch] = useReducer(reducer, 0);
+  const [{ todos, todoCount }, dispatch] = useReducer(reducer, {
+    todos: [],
+    todoCount: 0,
+  });
+  const [text, setText] = useState("");
   return (
     <div>
-      count: {count}
-      <button onClick={() => dispatch({ type: "INCREMENT" })}>increment</button>
-      <button onClick={() => dispatch({ type: "DECREMENT" })}>decrement</button>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          dispatch({ type: "ADD-TODO", text });
+          setText("");
+        }}
+      >
+        <input
+          type="text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+      </form>
+      <div>number of todos: {todoCount}</div>
+      {todos.map((t, idx) => (
+        <div
+          key={t.text}
+          style={{ textDecoration: t.completed ? "line-through" : "none" }}
+          onClick={() => dispatch({ type: "TOGGLE-TODO", idx })}
+        >
+          {t.text}{" "}
+        </div>
+      ))}
     </div>
   );
 }
