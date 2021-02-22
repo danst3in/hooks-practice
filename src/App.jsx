@@ -1,4 +1,8 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer, useState, useMemo } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { About } from "./pages/About";
+import { UserContext } from "./UserContext";
 
 /**
  * TODO:
@@ -6,57 +10,45 @@ import React, { useReducer, useState } from "react";
  *
  */
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "ADD-TODO":
-      return {
-        todos: [...state.todos, { text: action.text, completed: false }],
-        todoCount: state.todoCount + 1,
-      };
-    case "TOGGLE-TODO":
-      return {
-        todos: state.todos.map((t, idx) =>
-          idx === action.idx ? { ...t, completed: !t.completed } : t
-        ),
-        todoCount: state.todoCount,
-      };
-    default:
-      return state;
-  }
-};
-
 function App() {
-  const [{ todos, todoCount }, dispatch] = useReducer(reducer, {
-    todos: [],
-    todoCount: 0,
-  });
-  const [text, setText] = useState("");
+  const [value, setValue] = useState("hello from context!");
+  const providerValue = useMemo(() => ({ value, setValue }), [value, setValue]);
   return (
-    <div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          dispatch({ type: "ADD-TODO", text });
-          setText("");
-        }}
-      >
-        <input
-          type="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
-      </form>
-      <div>number of todos: {todoCount}</div>
-      {todos.map((t, idx) => (
-        <div
-          key={t.text}
-          style={{ textDecoration: t.completed ? "line-through" : "none" }}
-          onClick={() => dispatch({ type: "TOGGLE-TODO", idx })}
-        >
-          {t.text}{" "}
-        </div>
-      ))}
-    </div>
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/users">Users</Link>
+            </li>
+          </ul>
+        </nav>
+
+        {/* A <Switch> looks through its children <Route>s and
+          renders the first one that matches the current URL. */}
+        {/* <Switch>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/users">
+            <Users />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch> */}
+        <UserContext.Provider value={providerValue}>
+          <Route path="/" exact component={Home} />
+          <Route path="/about/" component={About} />
+        </UserContext.Provider>
+      </div>
+    </Router>
   );
 }
 
