@@ -11,8 +11,8 @@ import { UserContext } from "./UserContext";
  */
 
 function App() {
-  const [value, setValue] = useState("hello from context!");
-  const providerValue = useMemo(() => ({ value, setValue }), [value, setValue]);
+  const [user, setUser] = useState(null);
+  const providerValue = useMemo(() => ({ user, setUser }), [user, setUser]);
   return (
     <Router>
       <div>
